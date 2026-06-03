@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Data Report Cure</title>
+
+        <link rel="stylesheet" type="text/css" href="jquery-ui.min.css"/>
+        <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+        <link rel="stylesheet" href="../template/datatables/bootstrap.min.css">
+        <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+        <script type="text/javascript" src="jquery-ui.min.js"></script>
+        
+    </head>
+    <body >
+
+        <div >
+            <!-- Date Filter -->
+            <table>
+                <tr>
+                    <td>
+                        <input type='text' readonly id='search_fromdate' class="datepicker" placeholder='From date'>
+                    </td>
+                    <td>
+                        <input type='text' readonly id='search_todate' class="datepicker" placeholder='To date'>
+                    </td>
+                    <td>
+                        <input type='text' id='Shift' placeholder='Shift'>
+                    </td>
+                    <td>
+                        <input type='text' id='MAT_IP_CODE' placeholder='MAT_IP_CODE'>
+                    </td>
+                    <td>
+						<label for="cars">Choose a Status:</label>
+						<select id="cured_stts">
+							<option value=""> - </option>
+							<option value="CURED">CURED</option>
+							<option value="UNCURED">UNCURED</option>
+						</select>
+                    </td>
+                    <td>
+                        <input type='button' id="btn_search" value="Filter">
+                    </td>
+                </tr>
+            </table>
+            
+            <!-- Table -->
+            <table id='empTable' class='display dataTable'>
+                <thead>
+                    <tr rowspan="2" style="border: 1px;">
+                        <td colspan="2">EVOLUZIONE TYRES</td>
+                        <td colspan="5">FORM REPORT CURED</td>
+                        <td colspan="2">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>MM_CODE</th>
+                        <th>WM_NAME_WM_SURNAME</th>
+                        <th>IP Code</th>
+                        <th>Material Description</th>
+                        <th>Amount</th>
+                        <th>Park</th>
+                        <th>CURE_TIME</th>
+                        <th>Status</th>
+                        <th>Actual Cure</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+                
+            </table>
+        </div>
+        
+        <!-- Script -->
+        <script>
+        $(document).ready(function(){
+
+            // Datapicker 
+            $( ".datepicker" ).datepicker({
+                "dateFormat": "yy-mm-dd",
+                changeYear: true
+            });
+
+            // DataTable
+            var dataTable = $('#empTable').DataTable({    
+                lengthMenu: [
+                    [10, 100, 500, 1000, 5000, 10000],
+                    [10, 100, 500, 1000, 5000, 10000],
+                ],
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'searching': true, // Set false to remove default Search Control
+                dom: 'Blrtip',
+                buttons: [{
+                        text: '<span class="fas fa-sync-alt"></span> Refresh',
+                        className: "btn btn-light btn-sm",
+                        action: function(e, dt, node, config) {
+                            reload_table();
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                        },
+                        footer: true,
+                        text: '<span class="fas fa-file-excel"></span> Download Excell',
+                        className: "btn btn-light btn-sm",
+                        title: 'Report Output Cured',
+                        filename: 'cure_report'
+                    },
+                ],
+                'ajax': {
+                    'url':'ajaxfile.php',
+                    'data': function(data){
+                        // Read values
+                        var from_date = $('#search_fromdate').val();
+                        var to_date = $('#search_todate').val();
+                        var Shift = $('#Shift').val();
+                        var MAT_IP_CODE = $('#MAT_IP_CODE').val();
+                        var cured_stts = $('#cured_stts').val();
+
+                        // Append to data
+                        data.searchByFromdate = from_date;
+                        data.searchByTodate = to_date;
+                        data.searchShift = Shift;
+                        data.searchMAT_IP_CODE = MAT_IP_CODE;
+                        data.searchCured_stts = cured_stts;
+                    }
+                },
+                'footerCallback': function(row, data, start, end, display) {
+                    var api = this.api(),
+                        data;
+
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function(i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                            i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column(api.colReorder.transpose(4))
+                        .data()
+                        .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Total over this page
+                    pageTotal = api
+                        .column(api.colReorder.transpose(4), {
+                            page: 'current'
+                        })
+                        .data()
+                        .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Update footer
+                    $(api.column(api.colReorder.transpose(4)).footer()).html(
+                        + pageTotal + '   Total'
+                    );
+                },
+                'columns': [
+                    { data: 'MM_CODE' },
+                    { data: 'WM_NAME_WM_SURNAME' },
+                    { data: 'MAT_IP_CODE' },
+                    { data: 'MAT_DESC' },
+                    { data: 'Amount' },
+                    { data: 'Park' },
+                    { data: 'CURE_TIME' },
+                    { data: 'cured_stts' },
+                    { data: 'actual_cure' },
+                ]
+            });
+
+			function reload_table() {
+				dataTable.ajax.reload(null, false);
+			}
+            // Search button
+            $('#btn_search').click(function(){
+                dataTable.draw();
+            });
+        });
+        </script>
+    </body>
+
+</html>

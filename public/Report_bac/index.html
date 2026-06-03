@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GT painting Report</title>
+
+	<!-- Google Font: Source Sans Pro
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+	<!-- Font Awesome Icons -->
+	<link rel="stylesheet" href="../template/plugins/fontawesome-free/css/all.min.css">
+	<!-- Theme style -->
+	<!-- <link rel="stylesheet" href="<?= base_url() ?>/template/dist/css/adminlte.min.css"> -->
+	<!-- <link rel="stylesheet" href="<?= base_url() ?>/template/theme/style.css"> -->
+	<link rel="stylesheet" href="../template/datatables/bootstrap.min.css">
+
+
+<!-- jQuery Datatables -->
+<script src="../template/plugins/jquery/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../template/datatables/css.css" />
+	<link rel="stylesheet" type="text/css" href="../sumfooter/css/jquery.dataTables.css" />
+	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" /> -->
+	<!-- <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" /> -->
+
+
+	<!-- JS Datatables -->
+
+	<script type="text/javascript" src="../template/datatables/pdf.js"></script>
+	<script type="text/javascript" src="../template/datatables/font.js"></script>
+	<script type="text/javascript" src="../template/datatables/datatable.js"></script>
+	<!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script> -->
+	<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+	<!-- <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>  -->
+	<script type="text/javascript" src="../sumfooter/js/dataTables.colReorder.min.js"></script>
+
+	<!-- Plugin Loading page -->
+
+	<script src="../template/blokui.js"></script>
+	<script src="../template/loader.js"></script>
+        
+</head>
+
+<body>
+	<div class="container">
+
+		<div class="row">
+
+			<!-- Task Info -->
+
+			<div class="container mt-5">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								GT Boiacca Report
+								<!-- <a href="" class="btn btn-primary btn-sm float-right">New Record</a> -->
+							</div>
+							<div class="card-body">
+
+                                <!-- Date Filter -->
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input type='text' readonly id='search_fromdate' class="datepicker" placeholder='From date'>
+                                        </td>
+                                        <td>
+                                            <input type='text' readonly id='search_todate' class="datepicker" placeholder='To date'>
+                                        </td>
+                                        <td>
+                                            <input type='text' id='Shift' placeholder='Shift'>
+                                        </td>
+                                        <td>
+                                            <input type='text' id='MCH' placeholder='Machine'>
+                                        </td>
+                                        <td>
+                                            <input type='text' id='Park' placeholder='Park'>
+                                        </td>
+                                        <td>
+                                            <input type='text' id='IP_CODE' placeholder='IP CODE'>
+                                        </td>
+                                        <td>
+                                            <input type='button' id="btn_search" value="Search">
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Table -->
+                                <table id='empTable' class='display dataTable'>
+                                    <thead>
+                                    <tr>
+                                        <th>Machine</th>
+                                        <th>IP Code</th>
+                                        <th>Material Deskripsi</th>
+                                        <th>Jumlah</th>
+                                        <th>Slot</th>
+                                        <th>Print Out</th>
+                                        <th>Operator</th>
+                                        <th>Group</th>
+                                        <th>Shift</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Jumlah</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                    
+                                </table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+    
+
+			<!-- /.Content -->
+        
+        <!-- Script -->
+        <script>
+        $(document).ready(function(){
+
+            // Datapicker 
+            $( ".datepicker" ).datepicker({
+                "dateFormat": "yy-mm-dd",
+                changeYear: true
+            });
+
+            // DataTable
+            var dataTable = $('#empTable').DataTable({
+                lengthMenu: [
+                    [10, 100, 500, 1000, 5000, 10000],
+                    [10, 100, 500, 1000, 5000, 10000],
+                ],
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'searching': true, // Set false to remove default Search Control
+                'ajax': {
+                    'url':'ajaxfile.php',
+                    'data': function(data){
+                        // Read values
+                        var from_date = $('#search_fromdate').val();
+                        var to_date = $('#search_todate').val();
+                        var Shift = $('#Shift').val();
+                        var MCH = $('#MCH').val();
+                        var Park = $('#Park').val();
+                        var IP_CODE = $('#IP_CODE').val();
+
+                        // Append to data
+                        data.searchByFromdate = from_date;
+                        data.searchByTodate = to_date;
+                        data.searchShift = Shift;
+                        data.searchMCH = MCH;
+                        data.searchPark = Park;
+                        data.searchIP_CODE = IP_CODE;
+                    }
+                },
+                'footerCallback': function(row, data, start, end, display) {
+                    var api = this.api(),
+                        data;
+
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function(i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                            i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column(api.colReorder.transpose(4))
+                        .data()
+                        .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Total over this page
+                    pageTotal = api
+                        .column(api.colReorder.transpose(3), {
+                            page: 'current'
+                        })
+                        .data()
+                        .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Update footer
+                    $(api.column(api.colReorder.transpose(3)).footer()).html(
+                        + pageTotal + '   Total'
+                    );
+                },
+                'columns': [
+                    { data: 'MCH' },
+                    { data: 'IP_CODE' },
+                    { data: 'MAT_DESC' },
+                    { data: 'AMOUNT' },
+                    { data: 'SLOT' },
+                    { data: 'PRINT_OUT' },
+                    { data: 'USERNAME' },
+                    { data: 'GROUP_PAINT' },
+                    { data: 'SHIFT' },
+                ]
+            });
+
+            // Search button
+            $('#btn_search').click(function(){
+                dataTable.draw();
+            });
+           
+        });
+        </script>
+    </body>
+
+    <footer>
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+                <p>2021 &copy; ICT DEV</p>
+            </div>
+            <div class="float-end" align="right">
+                    <!-- <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                    href="/mazer/components/carousel"  style="color: #000;">ICT A. Febri Y</a></p> -->
+                <img src="/assets/images/logo/Pirelli.png"  alt="Pirelli" height="30">
+                <input style='background-color: black; border: none; color: #FFF017;' type='button' id="refreshTimer">
+            </div>
+        </div>
+    </footer>
+</html>

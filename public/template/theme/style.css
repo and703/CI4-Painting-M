@@ -1,0 +1,99 @@
+.sidebar-maps-right{
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 300px;
+	margin-top: 62px;
+	display: block;
+	z-index: 1000;
+	color: #222222;
+	font-weight: 200;
+	background: #ffffff;
+	-webkit-box-shadow: 4px 4px 10px rgba(69, 65, 78, 0.06);
+	-moz-box-shadow: 4px 4px 10px rgba(69, 65, 78, 0.06);
+	box-shadow: 4px 4px 10px rgba(69, 65, 78, 0.06);
+	transition: all .3s;
+}
+.sidebar-maps-left{
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 260px;
+	margin-top: 62px;
+	display: block;
+	z-index: 1000;
+	color: #222222;
+	font-weight: 200;
+	background: #ffffff;
+	-webkit-box-shadow: 4px 4px 10px rgba(69, 65, 78, 0.06);
+	-moz-box-shadow: 4px 4px 10px rgba(69, 65, 78, 0.06);
+	box-shadow: 4px 4px 10px rgba(69, 65, 78, 0.06);
+	transition: all .3s;
+}
+
+
+.text-shadow{text-shadow: 4px 4px 10px rgba(69, 65, 78, 0.06);}
+.text-bold{font-weight:bold;}
+.text-sm{font-size: 8px;}
+.font-12{font-size: 12px;}
+.width-full{width:100%;}
+.con-page{min-height:500px;}
+.padtop-0{padding-top:0px;}
+.headertitle{
+padding: 15px 0px;
+}
+.headertitle h1{
+font-size:1.8rem;
+}
+.displaynone{
+	display:none;
+}
+.bg-aktif{
+	background:#1572e8;
+	color:#fff;
+}
+.text-grey{
+	color:#999;
+}
+.vimg{
+	background:#f4f4f4;
+}
+.bg-link{
+	background-color: rgba(0, 0, 0, 0);
+	background: url('images/link.jpg') no-repeat top center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.bg-area{
+  background-color: #000000b3!important;
+}
+.bg-car{
+	background-color: rgb(0, 0, 0);
+	background: url('BG_Moto.jpg') no-repeat top center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.bg-login{
+  background-color: rgba(0, 0, 0, 0);
+  background: url('images/back.png') no-repeat top right;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.transback{
+	background-color: rgba(0, 0, 0, 0.6) !important;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+.transback2{
+	background:rgba(0, 0, 0, 0.7);
+}

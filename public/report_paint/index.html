@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Data Report Painting</title>
+
+        <link rel="stylesheet" type="text/css" href="jquery-ui.min.css"/>
+        <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+        <link rel="stylesheet" href="../template/datatables/bootstrap.min.css">
+        <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+        <script type="text/javascript" src="jquery-ui.min.js"></script>
+        
+    </head>
+    <body >
+
+        <div >
+            <!-- Date Filter -->
+            <table>
+                <tr>
+                    <td>
+                        <input type='text' readonly id='search_fromdate' class="datepicker" placeholder='From date'>
+                    </td>
+                    <td>
+                        <input type='text' readonly id='search_todate' class="datepicker" placeholder='To date'>
+                    </td>
+                    <td>
+                        <input type='text' id='Shift' placeholder='Shift'>
+                    </td>
+                    <td>
+                        <input type='text' id='MCH' placeholder='Machine'>
+                    </td>
+                    <td>
+                        <input type='text' id='Park' placeholder='Park'>
+                    </td>
+                    <td>
+                        <input type='button' id="btn_search" value="Filter">
+                    </td>
+                </tr>
+            </table>
+            
+            <!-- Table -->
+            <table id='empTable' class='display dataTable'>
+                <thead>
+                    <tr rowspan="2" style="border: 1px;">
+                        <td colspan="2">EVOLUZIONE TYRES</td>
+                        <td colspan="5">FORM REPORT BOIACCA</td>
+                        <td colspan="2">
+                            Doc. No.        : CR-F-024-0820 <br>
+                            Rev.            : 00
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Machine</th>
+                        <th>IP Code</th>
+                        <th>Material Deskripsi</th>
+                        <th>Jumlah</th>
+                        <th>Slot</th>
+                        <th>Print Out</th>
+                        <th>Operator</th>
+                        <th>Group</th>
+                        <th>Shift</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Jumlah</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+                
+            </table>
+        </div>
+        
+        <!-- Script -->
+        <script>
+        $(document).ready(function(){
+
+            // Datapicker 
+            $( ".datepicker" ).datepicker({
+                "dateFormat": "yy-mm-dd",
+                changeYear: true
+            });
+
+            // DataTable
+            var dataTable = $('#empTable').DataTable({    
+                lengthMenu: [
+                    [10, 100, 500, 1000, 5000, 10000],
+                    [10, 100, 500, 1000, 5000, 10000],
+                ],
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'searching': true, // Set false to remove default Search Control
+                dom: 'Blfrtip',
+                buttons: [{
+                        text: '<span class="fas fa-sync-alt"></span> Refresh',
+                        className: "btn btn-light btn-sm",
+                        action: function(e, dt, node, config) {
+                            reload_table();
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                        },
+                        footer: true,
+                        text: '<span class="fas fa-file-excel"></span> Download Excell',
+                        className: "btn btn-light btn-sm",
+                        title: 'Report Output Boiacca',
+                        filename: 'painting_report'
+                    },
+                ],
+                'ajax': {
+                    'url':'ajaxfile.php',
+                    'data': function(data){
+                        // Read values
+                        var from_date = $('#search_fromdate').val();
+                        var to_date = $('#search_todate').val();
+                        var Shift = $('#Shift').val();
+                        var MCH = $('#MCH').val();
+                        var Park = $('#Park').val();
+
+                        // Append to data
+                        data.searchByFromdate = from_date;
+                        data.searchByTodate = to_date;
+                        data.searchShift = Shift;
+                        data.searchMCH = MCH;
+                        data.searchPark = Park;
+                    }
+                },
+                'footerCallback': function(row, data, start, end, display) {
+                    var api = this.api(),
+                        data;
+
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function(i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                            i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column(api.colReorder.transpose(4))
+                        .data()
+                        .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Total over this page
+                    pageTotal = api
+                        .column(api.colReorder.transpose(3), {
+                            page: 'current'
+                        })
+                        .data()
+                        .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Update footer
+                    $(api.column(api.colReorder.transpose(3)).footer()).html(
+                        + pageTotal + '   Total'
+                    );
+                },
+                'columns': [
+                    { data: 'MCH' },
+                    { data: 'IP_CODE' },
+                    { data: 'MAT_DESC' },
+                    { data: 'AMOUNT' },
+                    { data: 'SLOT' },
+                    { data: 'PRINT_OUT' },
+                    { data: 'USERNAME' },
+                    { data: 'GROUP_PAINT' },
+                    { data: 'SHIFT' },
+                ]
+            });
+
+            // Search button
+            $('#btn_search').click(function(){
+                dataTable.draw();
+            });
+        });
+        </script>
+    </body>
+
+</html>
