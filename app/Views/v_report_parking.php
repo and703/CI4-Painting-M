@@ -11,11 +11,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>GT painting Report</title>
 
-<<<<<<< HEAD
-=======
-	<!-- Google Font: Source Sans Pro
+	<!-- Google Font: Source Sans Pro -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
->>>>>>> ebb5504 (Add parking management features with dynamic updates and manual tag confirmation)
 	<!-- Font Awesome Icons -->
 	<link rel="stylesheet" href="<?= base_url() ?>/template/plugins/fontawesome-free/css/all.min.css">
 	<link rel="stylesheet" href="<?= base_url() ?>/template/datatables/bootstrap.min.css">

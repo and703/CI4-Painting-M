@@ -11,12 +11,24 @@ class Worker_model extends Model
     {
         $this->db1 = db_connect(); // default database group
 
-        $this->pcs = db_connect("pcs"); // other database group
+        try {
+            $this->pcs = db_connect("pcs"); // SQL Server (plant network)
+        } catch (\Exception $e) {
+            $this->pcs = null;
+        }
+    }
+
+    private function pcs()
+    {
+        if ($this->pcs === null) {
+            throw new \RuntimeException("Database PCS tidak tersedia. Pastikan koneksi ke server plant aktif.");
+        }
+        return $this->pcs;
     }
 
     public function getWorker($id = false)
     {
-        $builder = $this->pcs->table("MD_WORKERS");
+        $builder = $this->pcs()->table("MD_WORKERS");
         if ($id === false) {
             return $builder->get();
         } else {
@@ -26,7 +38,7 @@ class Worker_model extends Model
 
     public function getGtip($id = false)
     {
-        $builder = $this->pcs->table("MD_MATERIALS");
+        $builder = $this->pcs()->table("MD_MATERIALS");
         if ($id === false) {
             return $builder->get();
         } else {
@@ -34,21 +46,21 @@ class Worker_model extends Model
         }
     }
 
-    public function getMch($mch,$side,$ip)
+    public function getMch($mch, $side, $ip)
     {
-        $query = $this->pcs->query("SELECT
-                                        DISTINCT de.MCH_CODE, mmc.MCH_DESC, 
-                                        mm.MAT_CODE, de.EVS_MCH_SIDE 
-                                    FROM PCS.dbo.DC_EVENTS de, 
-                                            PCS.dbo.MD_MATERIALS mm, 
+        $query = $this->pcs()->query("SELECT
+                                        DISTINCT de.MCH_CODE, mmc.MCH_DESC,
+                                        mm.MAT_CODE, de.EVS_MCH_SIDE
+                                    FROM PCS.dbo.DC_EVENTS de,
+                                            PCS.dbo.MD_MATERIALS mm,
                                             PCS.dbo.MD_MACHINES mmc
                                     WHERE CONVERT(VARCHAR(10),de.EVS_START,101) = CONVERT(VARCHAR(10),GETDATE(),101)
-                                        AND de.MAT_SAP_CODE = mm.MAT_SAP_CODE 
+                                        AND de.MAT_SAP_CODE = mm.MAT_SAP_CODE
                                         AND de.MCH_CODE = mmc.MCH_CODE
                                         AND mmc.PP_CODE = 'V01'
-                                        AND de.MCH_CODE = '".$mch."'
-                                        AND de.EVS_MCH_SIDE = '".$side."'
-                                        AND mm.MAT_CODE = '".$ip."'");
+                                        AND de.MCH_CODE = ?
+                                        AND de.EVS_MCH_SIDE = ?
+                                        AND mm.MAT_CODE = ?", [$mch, $side, $ip]);
         return $query->getResultArray();
     }
 
@@ -66,126 +78,42 @@ class Worker_model extends Model
         return $builder->get();
     }
 	
-	public function apiJumlah(){
-		$date = date('Y-m-d');
-		
-		//$date = date('Y-m-d', strtotime('-1 Days', date('Y-m-d');
-		$sql = "select sum(Amount) as Jumlah from painting_format where On_Insert >= '2022-07-18 00:00:00.00' and On_Insert <= '2022-07-18 23:59:59.00' order by On_Insert DESC";
-		
-		// $row
-		
-		
-		
-		return $this->db1->query($sql)->getResultArray()[0];
-		//return $datel
-	}
-	
-	public function getDataPaint()
+    public function apiJumlah()
     {
-        $row = [];
         $date = date('Y-m-d');
-
-        $sql = "select sum(Amount) as jumlah from painting_format";
-        $shift1 = $this->db1->query($sql." where On_Insert >= '".$date." 00:00:00.00' and On_Insert <= '".$date." 07:59:59.00' order by On_Insert DESC")->getResultArray()[0];
-
-        if ($shift1['jumlah'] == null) {
-            $row['shift1'] = 0;
-        } else {
-            $row['shift1'] = $shift1['jumlah'];
-        }
-
-
-        $shift2 = $this->db1->query($sql." where On_Insert >= '".$date." 08:00:00.00' and On_Insert <= '".$date." 15:59:59.00' order by On_Insert DESC")->getResultArray()[0];
-
-        if ($shift2['jumlah'] == null) {
-            $row['shift2'] = 0;
-        } else {
-            $row['shift2'] = $shift2['jumlah'];
-        }
-
-
-
-        $shift3 = $this->db1->query($sql." where On_Insert >= '".$date." 16:00:00.00' and On_Insert <= '".$date." 23:59:59.00' order by On_Insert DESC")->getResultArray()[0];
-
-        if ($shift3['jumlah'] == null) {
-            $row['shift3'] = 0;
-        } else {
-            $row['shift3'] = $shift3['jumlah'];
-        }
-
-        return $row;
+        $sql = "select sum(Amount) as Jumlah from painting_format where On_Insert >= ? and On_Insert <= ? order by On_Insert DESC";
+        $result = $this->db1->query($sql, [$date . ' 00:00:00.00', $date . ' 23:59:59.00'])->getResultArray();
+        return $result[0] ?? ['Jumlah' => 0];
+    }
+	
+    public function getDataPaint()
+    {
+        return $this->_getShiftData(date('Y-m-d'));
     }
 
     public function getDataPaintYesterday()
     {
-        $row = [];
-        $date = date('Y-m-d', strtotime('-1 Days', strtotime(date('Y-m-d'))));
-
-        $sql = "select sum(Amount) as jumlah from painting_format";
-        $shift1 = $this->db1->query($sql." where On_Insert >= '".$date." 00:00:00.00' and On_Insert <= '".$date." 07:59:59.00' order by On_Insert DESC")->getResultArray()[0];
-
-        if ($shift1['jumlah'] == null) {
-            $row['shift1'] = 0;
-        } else {
-            $row['shift1'] = $shift1['jumlah'];
-        }
-
-
-        $shift2 = $this->db1->query($sql." where On_Insert >= '".$date." 08:00:00.00' and On_Insert <= '".$date." 15:59:59.00' order by On_Insert DESC")->getResultArray()[0];
-
-        if ($shift2['jumlah'] == null) {
-            $row['shift2'] = 0;
-        } else {
-            $row['shift2'] = $shift2['jumlah'];
-        }
-
-
-
-        $shift3 = $this->db1->query($sql." where On_Insert >= '".$date." 16:00:00.00' and On_Insert <= '".$date." 23:59:59.00' order by On_Insert DESC")->getResultArray()[0];
-
-        if ($shift3['jumlah'] == null) {
-            $row['shift3'] = 0;
-        } else {
-            $row['shift3'] = $shift3['jumlah'];
-        }
-
-        return $row;
+        return $this->_getShiftData(date('Y-m-d', strtotime('-1 day')));
     }
 
     public function getDataPaintAfterYesterday()
     {
+        return $this->_getShiftData(date('Y-m-d', strtotime('-2 days')));
+    }
+
+    private function _getShiftData($date)
+    {
         $row = [];
-        $date = date('Y-m-d', strtotime('-2 Days', strtotime(date('Y-m-d'))));
+        $sql = "select sum(Amount) as jumlah from painting_format where On_Insert >= ? and On_Insert <= ? order by On_Insert DESC";
 
-        $sql = "select sum(Amount) as jumlah from painting_format";
-        $shift1 = $this->db1->query($sql." where On_Insert >= '".$date." 00:00:00.00' and On_Insert <= '".$date." 07:59:59.00' order by On_Insert DESC")->getResultArray()[0];
-		
-		
+        $result1 = $this->db1->query($sql, [$date . ' 00:00:00.00', $date . ' 07:59:59.00'])->getResultArray();
+        $row['shift1'] = ($result1[0]['jumlah'] ?? 0) ?: 0;
 
-        if ($shift1['jumlah'] == null) {
-            $row['shift1'] = 0;
-        } else {
-            $row['shift1'] = $shift1['jumlah'];
-        }
+        $result2 = $this->db1->query($sql, [$date . ' 08:00:00.00', $date . ' 15:59:59.00'])->getResultArray();
+        $row['shift2'] = ($result2[0]['jumlah'] ?? 0) ?: 0;
 
-
-        $shift2 = $this->db1->query($sql." where On_Insert >= '".$date." 08:00:00.00' and On_Insert <= '".$date." 15:59:59.00' order by On_Insert DESC")->getResultArray()[0];
-
-        if ($shift2['jumlah'] == null) {
-            $row['shift2'] = 0;
-        } else {
-            $row['shift2'] = $shift2['jumlah'];
-        }
-
-
-
-        $shift3 = $this->db1->query($sql." where On_Insert >= '".$date." 16:00:00.00' and On_Insert <= '".$date." 23:59:59.00' order by On_Insert DESC")->getResultArray()[0];
-
-        if ($shift3['jumlah'] == null) {
-            $row['shift3'] = 0;
-        } else {
-            $row['shift3'] = $shift3['jumlah'];
-        }
+        $result3 = $this->db1->query($sql, [$date . ' 16:00:00.00', $date . ' 23:59:59.00'])->getResultArray();
+        $row['shift3'] = ($result3[0]['jumlah'] ?? 0) ?: 0;
 
         return $row;
     }

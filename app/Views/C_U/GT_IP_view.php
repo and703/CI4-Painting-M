@@ -9,7 +9,7 @@
             </div>
             <div class="col-1">
                 <div class="row">
-                    <h5 class="card-title" style="font-size: 300%; color: #FFF017;">AUTO MACHINE 1</h4>
+                    <h5 class="card-title" style="font-size: 300%; color: #FFF017;">AUTO MACHINE 1</h5>
                 </div>
             </div>
             <div class="col-4">
@@ -25,24 +25,24 @@
             <div class="col-12">
                 <div class="row">
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
-                    <h5 class="card-title" style="font-size: 300%; color: #FFF017;">INPUT GT IPCODE</h4>
+                    <h5 class="card-title" style="font-size: 300%; color: #FFF017;">INPUT GT IPCODE</h5>
                     <div class="col-12">
                         <form action="/worker/get_ip" method="post">
                             <input style="text-align:center; font-weight:bold; width:50%" type="text" class="form-control" id="MAT_IP_CODE" name="MAT_IP_CODE" placeholder="MAT_IP_CODE" autofocus required autocomplete="off" maxlength="5">
@@ -55,23 +55,23 @@
                         </form>
                     </div>
 					
-                    <h5 class="card-title" style="font-size: 200%; color: #FFF017;">PLEASE INPUT GT IPCODE</h4>
+                    <h5 class="card-title" style="font-size: 200%; color: #FFF017;">PLEASE INPUT GT IPCODE</h5>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
 			{
 				$.ajax({
 					method:"POST",
-					url:"../chIP.php",
+					url:"<?= site_url('parking-display/check-ip') ?>",
 					data: {keyword:keyword},
 					success:function(hasil)
 					{
@@ -108,7 +108,7 @@
 			{
 				$.ajax({
 					method:"POST",
-					url:"../chID.php",
+					url:"<?= site_url('parking-display/check-id') ?>",
 					data: {id:id},
 					success:function(hasil)
 					{
@@ -130,7 +130,7 @@
 			{
 				$.ajax({
 					method:"POST",
-					url:"../reID.php",
+					url:"<?= site_url('parking-display/retrieve-id') ?>",
 					data: {id:id},
 					success:function(hasil)
 					{

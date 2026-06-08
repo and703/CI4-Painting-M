@@ -114,6 +114,7 @@ phpunit
 # Composer
 #-------------------------
 vendor/
+composer.phar
 
 #-------------------------
 # IDE / Development Files
@@ -146,7 +147,6 @@ nb-configuration.xml
 *.sublime-workspace
 *.sublime-project
 .phpintel
-/api/
 
 # Visual Studio Code
 .vscode/
@@ -154,4 +154,16 @@ nb-configuration.xml
 /results/
 /phpunit*.xml
 /.phpunit.*.cache
+
+#-------------------------
+# Debug and Test Files
+#-------------------------
+debug.log
+*.zip
+public/test*.php
+public/tst.php
+public/*.cmd
+public/*.bat
+e.nv
+builds
 

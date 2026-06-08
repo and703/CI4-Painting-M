@@ -25,7 +25,7 @@
                     ?>
                         <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
                         <input type="hidden" name="Count_Printed" value="<?= $count; ?>">
-                        <input type="hidden" name="mch" value="<?= $mch; ?>">
+                        <input type="hidden" name="mch" value="<?= $komik['MCH']; ?>">
                         <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
                     </form>
                     <p style="font-size: 300%; color: #000; font-weight:bold; margin-bottom: 0px;"><?= $komik['MAT_DESC'];?></p>

@@ -9,27 +9,10 @@ use CodeIgniter\Database\Config;
  */
 class Database extends Config
 {
-    /**
-     * The directory that holds the Migrations
-     * and Seeds directories.
-     *
-     * @var string
-     */
     public $filesPath = APPPATH . 'Database' . DIRECTORY_SEPARATOR;
 
-    /**
-     * Lets you choose which connection group to
-     * use if no other is specified.
-     *
-     * @var string
-     */
     public $defaultGroup = 'default';
 
-    /**
-     * The default database connection.
-     *
-     * @var array
-     */
     public $default = [
         'DSN'      => '',
         'hostname' => 'localhost',
@@ -39,7 +22,7 @@ class Database extends Config
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
-        'DBDebug'  => (ENVIRONMENT !== 'production'),
+        'DBDebug'  => true,
         'charset'  => 'utf8',
         'DBCollat' => 'utf8_general_ci',
         'swapPre'  => '',
@@ -50,40 +33,28 @@ class Database extends Config
         'port'     => 3306,
     ];
 
-    /**
-     * The pcs database connection.
-     *
-     * @var array
-     */
-
     public $pcs = [
-		'DSN'      => '',
-		'hostname' => '172.21.202.240', //'172.21.202.142',
-		'username' => 'Traceability',
-		'password' => 'ability',
-		'database' => 'PCS',
-		'DBDriver' => 'sqlsrv',
-		'DBPrefix' => '',
-		'pConnect' => false,
-		'DBDebug'  => (ENVIRONMENT !== 'production'),
-		'cacheOn'  => false,
-		'cacheDir' => '',
-		'charset'  => 'utf8',
-		'DBCollat' => 'utf8_general_ci',
-		'swapPre'  => '',
-		'encrypt'  => false,
-		'compress' => false,
-		'strictOn' => false,
-		'failover' => [],
-		'port'     => 1433,
+        'DSN'      => '',
+        'hostname' => '172.21.202.240',
+        'username' => 'Traceability',
+        'password' => '',
+        'database' => 'PCS',
+        'DBDriver' => 'sqlsrv',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => true,
+        'cacheOn'  => false,
+        'cacheDir' => '',
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port'     => 1433,
     ];
 
-    /**
-     * This database connection is used when
-     * running PHPUnit database tests.
-     *
-     * @var array
-     */
     public $tests = [
         'DSN'      => '',
         'hostname' => '127.0.0.1',
@@ -91,9 +62,9 @@ class Database extends Config
         'password' => '',
         'database' => ':memory:',
         'DBDriver' => 'SQLite3',
-        'DBPrefix' => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
+        'DBPrefix' => 'db_',
         'pConnect' => false,
-        'DBDebug'  => (ENVIRONMENT !== 'production'),
+        'DBDebug'  => true,
         'charset'  => 'utf8',
         'DBCollat' => 'utf8_general_ci',
         'swapPre'  => '',
@@ -108,11 +79,22 @@ class Database extends Config
     {
         parent::__construct();
 
-        // Ensure that we always set the database group to 'tests' if
-        // we are currently running an automated test suite, so that
-        // we don't overwrite live data on accident.
         if (ENVIRONMENT === 'testing') {
             $this->defaultGroup = 'tests';
         }
+
+        $this->default['hostname'] = env('database.default.hostname', $this->default['hostname']);
+        $this->default['username'] = env('database.default.username', $this->default['username']);
+        $this->default['password'] = env('database.default.password', $this->default['password']);
+        $this->default['database'] = env('database.default.database', $this->default['database']);
+        $this->default['DBDebug']  = (ENVIRONMENT !== 'production');
+
+        $this->pcs['hostname'] = env('database.pcs.hostname', $this->pcs['hostname']);
+        $this->pcs['username'] = env('database.pcs.username', $this->pcs['username']);
+        $this->pcs['password'] = env('database.pcs.password', $this->pcs['password']);
+        $this->pcs['database'] = env('database.pcs.database', $this->pcs['database']);
+        $this->pcs['DBDebug']  = (ENVIRONMENT !== 'production');
+
+        $this->tests['DBDebug'] = (ENVIRONMENT !== 'production');
     }
 }

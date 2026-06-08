@@ -140,6 +140,18 @@ class App extends BaseConfig
 
     /**
      * --------------------------------------------------------------------------
+     * Allowed Hostnames
+     * --------------------------------------------------------------------------
+     *
+     * List of hostnames that are allowed to access the site.
+     * Set to ['*'] to allow all hostnames.
+     *
+     * @var string[]
+     */
+    public $allowedHostnames = [];
+
+    /**
+     * --------------------------------------------------------------------------
      * Session Driver
      * --------------------------------------------------------------------------
      *
@@ -342,7 +354,7 @@ class App extends BaseConfig
      *
      * @var string|string[]
      */
-    public $proxyIPs = '';
+    public $proxyIPs = [];
 
     /**
      * --------------------------------------------------------------------------

@@ -38,9 +38,8 @@ $routes->delete('/komik/(:num)', 'Komik::delete/$1');
 $routes->get('/re_print/(:any)', 'Komik::detail/$1');
 $routes->get('/print/(:any)', 'Komik::detail2/$1');
 $routes->get('/p_park/(:any)', 'Komik::detail3/$1');
-$routes->get('/p_man/(:any)', 'Komik::detail4/$1');
+$routes->get('/p_man/(:any)', 'Komik::detail3/$1');
 $routes->get('/reprint/update/(:any)', 'Komik::update/$1');
-$routes->get('/p_reb/(:any)', 'Komik::reboaiaca/$1');
 //$routes->get('report', 'Report::index');
 //$routes->post('data_tables', 'Report::data_tables');
 $routes->get('chart', 'Chart::index');
@@ -48,7 +47,6 @@ $routes->get('chart', 'Chart::index');
 //$routes->post('data_tables', 'Report_parking::data_tables');
 
 $routes->get('api_app/jumlah', 'Worker::api_jumlah');
-$routes->get('api_app/result', 'Worker::api_result');
 $routes->get('r_status', 'R_status::index');
 $routes->get('rku', function(){
 	echo "Test";
@@ -77,24 +75,27 @@ $routes->get('stock', 'Worker::stock');
 $routes->get('t_stock', 'Worker::t_stock');
 $routes->get('p_show', 'Worker::park_Show');
 $routes->get('mch', 'Worker::mch_log');
-$routes->get('cure', 'Worker::cure');
-$routes->get('cure_mch', 'Worker::cure_mch');
+$routes->post('dev/set-session', 'Worker::dev_set_session');
 
-// Setting Routes
-$routes->get('users/userRoleAccess', 'Users::userRoleAccess');
-$routes->post('users/createRole', 'Users::createRole');
-$routes->post('users/updateRole', 'Users::updateRole');
-$routes->delete('users/deleteRole', 'Users::deleteRole');
-$routes->post('users/createMenuCategory', 'Users::createMenuCategory');
-$routes->post('users/createMenu', 'Users::createMenu');
-$routes->post('users/createSubMenu', 'Users::createSubMenu');
-$routes->post('users/createUser', 'Users::createUser');
-$routes->post('users/updateUser', 'Users::updateUser');
-$routes->delete('users/deleteUser', 'Users::deleteUser');
-$routes->post('users/changeMenuPermission', 'Users::changeMenuPermission');
-$routes->post('users/changeMenuCategoryPermission', 'Users::changeMenuCategoryPermission');
-$routes->post('users/changeSubMenuPermission', 'Users::changeSubMenuPermission');
+// Curing routes
+$routes->post('cure', 'CuringController::cure_log');
+$routes->post('cure_mch', 'CuringController::cure_log');
 
+// Parking save routes (POST)
+$routes->post('worker/save', 'ParkingController::save');
+$routes->post('worker/get_tag', 'ParkingController::get_tag');
+$routes->post('worker/tagconf', 'ParkingController::tagconf');
+$routes->post('worker/tagconf_manual', 'ParkingController::tagconf_manual');
+$routes->post('worker/tagconf_qty', 'ParkingController::tagconf_qty');
+
+// Parking display AJAX routes (replaces public/*.php files)
+$routes->get('parking-display/(:segment)/(:segment)', 'ParkingDisplayController::display/$1/$2');
+$routes->get('parking-display/(:segment)/(:segment)/(:segment)', 'ParkingDisplayController::displayManual/$1/$2/$3');
+$routes->get('parking-display/buff/(:segment)', 'ParkingDisplayController::displayBuff/$1');
+$routes->get('parking-display/buff', 'ParkingDisplayController::displayBuff');
+$routes->post('parking-display/check-ip', 'ParkingDisplayController::checkIp');
+$routes->post('parking-display/check-id', 'ParkingDisplayController::checkId');
+$routes->post('parking-display/retrieve-id', 'ParkingDisplayController::retrieveId');
 
 /*
  * --------------------------------------------------------------------

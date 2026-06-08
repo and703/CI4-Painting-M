@@ -29,7 +29,7 @@ class Modules extends BaseModules
      *
      * @var bool
      */
-    public $discoverInComposer = true;
+    public $discoverInComposer = false;
 
     /**
      * --------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 ?>
 <?= $this->extend('layouts/app') ?>
 <?= $this->section('content') ?>
-<br>  
+<br>
 <style>
     .loader {
       width: 60px;
@@ -21,32 +21,31 @@
         transform: rotate(360deg);
       }
     }
-</style>	
+</style>
 <div class="page-heading">
-    <!-- validations start -->
     <section id="input-validation" align="center">
         <div class="">
             <div class="row">
                 <div class="col-2">
                     <div class="row">
                         <h5 class="card-title" style="font-size: 100%; color: #FFF;">
-                            <?php 
+                            <?php
                                 $wm = session()->get('logged_in_wm');
-                                if(isset($wm)){
-                                    echo '<a href="worker/logout_CURE" class="btn btn-danger" >Logout</a>';
-                                }else{
-                                    echo '<a href="/cure" class="btn btn-success" >Login</a>';
+                                if (isset($wm)) {
+                                    echo '<a href="' . site_url('worker/logout_CURE') . '" class="btn btn-danger" >Logout</a>';
+                                } else {
+                                    echo '<a href="' . site_url('cure') . '" class="btn btn-success" >Login</a>';
                                 }
                             ?>
                         </h5>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><?= session()->get('MM_CODE');?></h5>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><?= session()->get('MM_NAME')." ".session()->get('MM_SURNAME');?></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><?= session()->get('MM_CODE') ?></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><?= session()->get('MM_NAME') . " " . session()->get('MM_SURNAME') ?></h5>
                         <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <h5 class="card-title" style="font-size: 400%; color: #FFF017;">Park Buffer Curring</h4>
+                        <h5 class="card-title" style="font-size: 400%; color: #FFF017;">Park Buffer Curring</h5>
                         <div id="h" class="row row-cols-12 row-cols-xs-12 g-2 g-xs-2">
                         </div>
                     </div>
@@ -56,25 +55,26 @@
                         <div class="row">
                             <div class="row" align="left">
                             </div>
-                            <h5 class="card-title" style="font-size: 200%; color: #FFF017;">SCAN TAG QRCODE</h4>
+                            <h5 class="card-title" style="font-size: 200%; color: #FFF017;">SCAN TAG QRCODE</h5>
                             <div class="col-12">
-                                <form action="/worker/get_tag" method="post" autocomplete="off">
-                                    <?php 
+                                <form action="<?= site_url('worker/get_tag') ?>" method="post" autocomplete="off">
+                                    <?= csrf_field() ?>
+                                    <?php
                                         $mm = session()->get('logged_in_mm');
                                         $qc = session()->get('logged_in_qc');
-                                        if(isset($mm)){
+                                        if (isset($mm)) {
                                             echo '
                                             <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" id="fill_ip" placeholder="Filter IP" autofocus><br>
                                             <input type="reset" style="text-align:center; font-weight:bold; width:30%" class="form-control" value="Reset Input"><br>
-                                            <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" name="listTag" placeholder="listTag" required autofocus autocomplete="off">
+                                            <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" name="listTag" placeholder="listTag" required autocomplete="off">
                                             ';
-                                        }elseif(isset($qc)){
+                                        } elseif (isset($qc)) {
                                             echo '
                                             <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" id="fill_ip" placeholder="Filter IP" autofocus><br>
                                             <input type="reset" style="text-align:center; font-weight:bold; width:30%" class="form-control" value="Reset Input"><br>
-                                            <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" name="listTag" placeholder="listTag" required autofocus autocomplete="off">
+                                            <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" name="listTag" placeholder="listTag" required autocomplete="off">
                                             ';
-                                        }else{
+                                        } else {
                                             echo '
                                             <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" id="fill_ip" placeholder="Filter IP" autofocus><br>
                                             <input type="reset" style="text-align:center; font-weight:bold; width:30%" class="form-control" value="Reset Input"><br>';
@@ -89,34 +89,29 @@
             </div>
         </div>
     </section>
-    <!-- validations end -->
-
 </div>
-<?php 
+<?php
     $mm = session()->get('logged_in_mm');
     $qc = session()->get('logged_in_qc');
     $MM_CODE = session()->get('MM_CODE');
-    if(isset($qc)){
-        $co = 'pbc3';
-    }elseif(isset($mm) && $MM_CODE == 'irhamkh002'){
-        $co = 'pbc2';
-    }else{
-        $co = 'pbc';
+    if (isset($qc)) {
+        $variant = 'form';
+    } elseif (isset($mm) && $MM_CODE == 'irhamkh002') {
+        $variant = 'interactive';
+    } else {
+        $variant = 'basic';
     }
 ?>
 <script>
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if(this.readyState === 4){
-            document.getElementById('h').innerHTML = this.responseText;
-        } else {
-            document.getElementById('h').innerHTML = '<div class="text-center"><div class="spinner-border text-warning" style="width: 10rem; height: 10rem;" role="status"><span class="visually-hidden"></span></div></div>';
-        }
+$(document).ready(function(){
+    const baseUrl = '<?= site_url() ?>';
+
+    function loadBuff() {
+        $("#h").load(baseUrl + "/parking-display/buff/<?= $variant ?>");
     }
-    xhr.open('GET', '../<?= $co?>.php', true);
-    xhr.send();
-    setInterval(function(){   
-        $("#h").load("../<?= $co?>.php");
-    }, 500);
+
+    loadBuff();
+    setInterval(loadBuff, 500);
+});
 </script>
 <?= $this->endSection() ?>

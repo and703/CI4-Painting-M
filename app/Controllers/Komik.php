@@ -79,36 +79,6 @@ class Komik extends BaseController
         return view("komik/detail3", $data);
     }
 
-    public function reboaiaca($slug)
-    {
-        $data["title"]   = "Detail Tag";
-        $data["komik"]  = $this->komikModel->getKomik($slug);
-        //jika komik tidak ada di tabel
-        if (empty($data["komik"])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException(
-                "Judul komik" . $slug . "Tidak di temukan"
-            );
-        }
-        return view("komik/reboiaca", $data);
-    }
-
-    public function parkDet($id)
-    {
-        $data = [
-            "title" => "Detail Tag",
-            "park" => $this->ParkModel->getPark($id),
-        ];
-
-        //jika komik tidak ada di tabel
-        if (empty($data["komik"])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException(
-                "Judul komik" . $slug . "Tidak di temukan"
-            );
-        }
-        //return view('komik/detail', $data);
-        print_r($data);
-    }
-
     public function create()
     {
         $data = [
@@ -216,27 +186,15 @@ class Komik extends BaseController
     public function update2($id)
     {
         $session = session();
-        if(strncmp($this->request->getVar("mch"), "A", 1) === 0){
-            $data = [
-                "Count_Printed" => $this->request->getVar("Count_Printed"),
-            ];
-            $this->komikModel->update($id, $data);
-    
-            session()->setFlashdata("pesan", "Print Success. ");
-    
-            return redirect()->to("worker");
+        $data = [
+            "Count_Printed" => $this->request->getVar("Count_Printed"),
+        ];
+        $this->komikModel->update($id, $data);
 
-        }else{
-            $data = [
-                "Count_Printed" => $this->request->getVar("Count_Printed"),
-            ];
-            $this->komikModel->update($id, $data);
-    
-            session()->setFlashdata("pesan", "Print Success. ");
-    
-            $session->destroy();
-            return redirect()->to("worker");
-        }
+        session()->setFlashdata("pesan", "Print Success. ");
+
+        $session->destroy();
+        return redirect()->to("worker");
     }
 
     public function get($id)

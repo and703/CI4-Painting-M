@@ -25,49 +25,50 @@
             <div class="col-12">
                 <div class="row">
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
-                    <h5 class="card-title" style="font-size: 300%; color: #FFF017;">INPUT ID TROLLEY</h4>
+                    <h5 class="card-title" style="font-size: 300%; color: #FFF017;">INPUT ID TROLLEY</h5>
                     <div class="col-12">
-					<form action="/worker/put_trol" method="post">
+					<form action="<?= site_url('worker/put_trol') ?>" method="post">
+						<?= csrf_field() ?>
 						<input type="hidden" name="mch" value="<?= $mch ?>">
                         <input style="text-align:center; font-weight:bold; width:50%" type="text" class="form-control" id="trol" name="trol" placeholder="trol" autofocus required autocomplete="off">
 					
 					</form>
                     </div>
 					
-                    <h5 class="card-title" style="font-size: 200%; color: #FFF017;">PLEASE INPUT ID TROLLEY</h4>
+                    <h5 class="card-title" style="font-size: 200%; color: #FFF017;">PLEASE INPUT ID TROLLEY</h5>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                 </div>
             </div>

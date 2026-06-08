@@ -37,19 +37,15 @@
 # DATABASE
 #--------------------------------------------------------------------
 
-# database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
-# database.default.password = root
-# database.default.DBDriver = MySQLi
-# database.default.DBPrefix =
+database.default.hostname = 10.130.223.26
+database.default.database = pcs
+database.default.username = painting
+database.default.password = Pirelli007
 
-# database.tests.hostname = localhost
-# database.tests.database = ci4
-# database.tests.username = root
-# database.tests.password = root
-# database.tests.DBDriver = MySQLi
-# database.tests.DBPrefix =
+database.pcs.hostname = 172.21.202.240
+database.pcs.database = PCS
+database.pcs.username = Traceability
+database.pcs.password =
 
 #--------------------------------------------------------------------
 # CONTENT SECURITY POLICY

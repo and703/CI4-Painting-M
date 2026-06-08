@@ -24,52 +24,52 @@
             <div class="col-12">
                 <div class="row">
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
-                        <h5 class="card-title" style="font-size: 300%; color: #FFF017;">PAINTING MACHINE</h4>
-                    <div class="col-6">
-                        <h5 class="card-title" style="font-size: 300%; color: #FFF017;">A1</h4>
-                        <h5 class="card-title" style="font-size: 200%; color: #FFF;">NumPad "1"</h4>
+                        <h5 class="card-title" style="font-size: 300%; color: #FFF017;">PAINTING MACHINE</h5>
+                    <div class="col-12">
+                        <h5 class="card-title" style="font-size: 300%; color: #FFF017;">M1</h5>
+                        <h5 class="card-title" style="font-size: 200%; color: #FFF;">NumPad "1" - Outside Process</h5>
                     </div>
-                    <div class="col-6">
-                        <h5 class="card-title" style="font-size: 300%; color: #FFF017;">M1</h4>
-                        <h5 class="card-title" style="font-size: 200%; color: #FFF;">NumPad "2"</h4>
+                    <div class="col-12">
+                        <h5 class="card-title" style="font-size: 300%; color: #FFF017;">M2</h5>
+                        <h5 class="card-title" style="font-size: 200%; color: #FFF;">NumPad "2" - Inside Process</h5>
                     </div>
-                    <h5 class="card-title" style="font-size: 200%; color: #FFF017;">PRESS BUTTON TO CHOOSE</h4>
+                    <h5 class="card-title" style="font-size: 200%; color: #FFF017;">PRESS BUTTON TO CHOOSE</h5>
 					<form id="mchForm" action="/worker/get_mch" method="post">
 						<input type="hidden" id="mch" name="mch">
 						<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
 					</form>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                     <div class="row" align="left">
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h4>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                 </div>
             </div>
@@ -88,11 +88,11 @@
 		keysDown1[e.key] = true;
 
 		if (keysDown1["1"]) {
-			document.getElementById("mch").value = "A1"; //set value on myInputID
+			document.getElementById("mch").value = "M1";
 			Func1();
 		}
 		else if(keysDown1["2"] ){
-			document.getElementById("mch").value = "M1"; //set value on myInputID
+			document.getElementById("mch").value = "M2";
 			Func1();
 		}
 	}

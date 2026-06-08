@@ -20,12 +20,7 @@ class M_R_status extends Model
         $this->db = \Config\Database::connect();
         $request = \Config\Services::request();
         $this->request = $request;
-        //deklartabel
         $this->db_stat = $this->db->table($this->v_tbl_list_parking_status);
-		
-		error_reporting(-1);
-		ini_set('display_errors', '1');
-       
     }
     //library
 
@@ -46,48 +41,47 @@ class M_R_status extends Model
     }
     function _get_datatables()
     {
-       
-       
-        
-        $column_order = array('','MAT_IP_CODE','','','Park','','','On_Insert','','HOURS','',''); //field yang ada di table
+        $column_order = array('MAT_IP_CODE','Park','On_Insert','HOURS');
         $column_search = array('IP_CODE','SLOT');
-        $order = array('HOURS','desc');
 
-        $i = 0;
-        foreach ($column_search as $item) // looping awal
-        {
-            if ($this->request->getPost('search')['value']) // jika datatable mengirimkan pencarian dengan metode POST
-            {
-                if ($i === 0) // looping awal
-                {
+        $searchValue = $this->request->getPost('search')['value'] ?? '';
+        if ($searchValue) {
+            $i = 0;
+            foreach ($column_search as $item) {
+                if ($i === 0) {
                     $this->db_stat->groupStart();
-                    $this->db_stat->like($item, $this->request->getPost('search')['value']);
+                    $this->db_stat->like($item, $searchValue);
                 } else {
-                    $this->db_stat->orLike($item, $this->request->getPost('search')['value']);
+                    $this->db_stat->orLike($item, $searchValue);
                 }
-                if (count($column_search) - 1 == $i){
+                if (count($column_search) - 1 == $i) {
                     $this->db_stat->groupEnd();
-				}
+                }
+                $i++;
             }
-            $i++;
         }
+
         $post_order = $this->request->getPost('order');
         if (isset($post_order)) {
-            $this->db_stat->orderBy($column_order[$this->request->getPost('order')['0']['column']], $this->request->getPost('order')['0']['dir']);
-        } else if (isset($order)) {
-            $order = $order;
-            $this->db_stat->orderBy(key($order), $order[key($order)]);
+            $colIndex = $post_order['0']['column'] ?? 0;
+            $colName = $column_order[$colIndex] ?? '';
+            if ($colName) {
+                $this->db_stat->orderBy($colName, $post_order['0']['dir'] ?? 'asc');
+            }
+        } else {
+            $this->db_stat->orderBy('HOURS', 'desc');
         }
     }
+
     function count_filtered()
     {
         $this->_get_datatables();
         return $this->db_stat->countAllResults();
     }
+
     function count_all()
     {
-        $this->_get_datatables();
-        return $this->db_stat->countAllResults();
+        return $this->db->table($this->v_tbl_list_parking_status)->countAllResults();
     }
 
 }

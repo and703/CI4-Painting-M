@@ -89,5 +89,5 @@
 </body>
 </html>
 <script language="JavaScript" type="text/javascript">
-    setTimeout("window.history.go(-2)",2000);
+    //setTimeout("window.history.go(-2)",2000);
 </script>

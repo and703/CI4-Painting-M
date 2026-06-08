@@ -5,45 +5,39 @@
 <?= $this->section('content') ?>
 <br>
 <div class="page-heading">
-    <!-- validations start -->
     <section id="input-validation" align="center">
         <div class="">
             <div class="row">
                 <div class="col-2">
                     <div class="row">
-                        <?php 
+                        <?php
                             $mm = session()->get('logged_in_mm');
                             $qc = session()->get('logged_in_qc');
-                            if(isset($mm)){
-                                echo '<a href="worker/logout_MM" class="btn btn-danger" >Logout</a>';
-                            }elseif(isset($qc)){
-                                echo '<a href="worker/logout_MM" class="btn btn-danger" >Logout</a>';
-                            }else{
-                                echo '<a href="parking" class="btn btn-success" >Login</a>';
+                            if (isset($mm)) {
+                                echo '<a href="' . site_url('worker/logout_MM') . '" class="btn btn-danger" >Logout</a>';
+                            } elseif (isset($qc)) {
+                                echo '<a href="' . site_url('worker/logout_MM') . '" class="btn btn-danger" >Logout</a>';
+                            } else {
+                                echo '<a href="' . site_url('parking') . '" class="btn btn-success" >Login</a>';
                             }
                         ?>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><?= session()->get('MM_CODE');?></h5>
-                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><?= session()->get('MM_NAME')." ".session()->get('MM_SURNAME');?></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><?= session()->get('MM_CODE') ?></h5>
+                        <h5 class="card-title" style="font-size: 100%; color: #FFF;"><?= session()->get('MM_NAME') . " " . session()->get('MM_SURNAME') ?></h5>
                         <h5 class="card-title" style="font-size: 100%; color: #FFF;"><br></h5>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <h5 class="card-title" style="font-size: 400%; color: #FFF017;">Park Auto</h4>
+                        <h5 class="card-title" style="font-size: 400%; color: #FFF017;">Park Auto</h5>
                         <div id="h" class="row row-cols-12 row-cols-xs-12 g-2 g-xs-2">
                         </div>
                     </div>
                     <div class="col-6">
-<<<<<<< HEAD
-                        <h5 class="card-title" style="font-size: 400%; color: #FFF017;">Temp Park Manual</h4>
+                        <h5 class="card-title" style="font-size: 400%; color: #FFF017;">Temp Park Manual</h5>
                         <div id="i" class="row row-cols-12 row-cols-xs-12 g-2 g-xs-2">
                         </div>
-                        <h5 class="card-title" style="font-size: 400%; color: #FFF017;">Park Manual</h4>
+                        <h5 class="card-title" style="font-size: 400%; color: #FFF017;">Park Manual</h5>
                         <div id="j" class="row row-cols-12 row-cols-xs-12 g-2 g-xs-2">
-=======
-                        <h5 class="card-title" style="font-size: 400%; color: #FFF017;">Park Manual</h4>
-                        <div id="i" class="row row-cols-12 row-cols-xs-12 g-2 g-xs-2">
->>>>>>> ebb5504 (Add parking management features with dynamic updates and manual tag confirmation)
                         </div>
                     </div>
                 </div>
@@ -52,25 +46,26 @@
                         <div class="row">
                             <div class="row" align="left">
                             </div>
-                            <h5 class="card-title" style="font-size: 200%; color: #FFF017;">SCAN TAG QRCODE</h4>
+                            <h5 class="card-title" style="font-size: 200%; color: #FFF017;">SCAN TAG QRCODE</h5>
                             <div class="col-12">
-                                <form action="/worker/get_tag" method="post" autocomplete="off">
-                                    <?php 
+                                <form action="<?= site_url('worker/get_tag') ?>" method="post" autocomplete="off">
+                                    <?= csrf_field() ?>
+                                    <?php
                                         $mm = session()->get('logged_in_mm');
                                         $qc = session()->get('logged_in_qc');
-                                        if(isset($mm)){
+                                        if (isset($mm)) {
                                             echo '
                                             <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" id="fill_ip" placeholder="Filter IP" autofocus><br>
                                             <input type="reset" style="text-align:center; font-weight:bold; width:30%" class="form-control" value="Reset Input"><br>
-                                            <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" name="listTag" placeholder="listTag" required autofocus autocomplete="off">
+                                            <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" name="listTag" placeholder="listTag" required autocomplete="off">
                                             ';
-                                        }elseif(isset($qc)){
+                                        } elseif (isset($qc)) {
                                             echo '
                                             <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" id="fill_ip" placeholder="Filter IP" autofocus><br>
                                             <input type="reset" style="text-align:center; font-weight:bold; width:30%" class="form-control" value="Reset Input"><br>
-                                            <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" name="listTag" placeholder="listTag" required autofocus autocomplete="off">
+                                            <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" name="listTag" placeholder="listTag" required autocomplete="off">
                                             ';
-                                        }else{
+                                        } else {
                                             echo '
                                             <input style="text-align:center; font-weight:bold; width:70%" type="text" class="form-control" id="fill_ip" placeholder="Filter IP" autofocus><br>
                                             <input type="reset" style="text-align:center; font-weight:bold; width:30%" class="form-control" value="Reset Input"><br>';
@@ -85,50 +80,47 @@
             </div>
         </div>
     </section>
-    <!-- validations end -->
-
 </div>
-<?php 
+<?php
     $mm = session()->get('logged_in_mm');
     $qc = session()->get('logged_in_qc');
-    $MM_CODE = session()->get('MM_CODE');
-    if(isset($qc)){
-        $co = 'co3';
-<<<<<<< HEAD
-        $cb = 'cb3';
-        $ci = 'ci3';
-    }elseif(isset($mm) && $MM_CODE == 'irhamkh002'){
-        $co = 'co2';
-        $cb = 'cb2';
-        $ci = 'ci2';
-    }else{
-        $co = 'co';
-        $cb = 'cb';
-=======
-        $ci = 'ci3';
-    }elseif(isset($mm) && $MM_CODE == 'irhamkh002'){
-        $co = 'co2';
-        $ci = 'ci2';
-    }else{
-        $co = 'co';
->>>>>>> ebb5504 (Add parking management features with dynamic updates and manual tag confirmation)
-        $ci = 'ci';
+    if (isset($qc)) {
+        $autoVariant = 'form';
+        $manualVariant = 'form';
+    } elseif (isset($mm)) {
+        $autoVariant = 'interactive';
+        $manualVariant = 'interactive';
+    } else {
+        $autoVariant = 'basic';
+        $manualVariant = 'basic';
     }
 ?>
+<style>
+    .blink {
+        animation: blinker 1s linear 1;
+        background: black;
+        color: white;
+    }
+    @keyframes blinker {
+        50% { opacity: 0; }
+    }
+</style>
 <script>
-
-$(document).ready(function(){  
+$(document).ready(function(){
     const ip_code = document.getElementById('fill_ip');
-    setInterval(function(){   
-        $("#h").load("../<?= $co?>.php?ip="+ip_code.value);
-<<<<<<< HEAD
-        $("#i").load("../<?= $cb?>.php?ip="+ip_code.value);
-        $("#j").load("../<?= $ci?>.php?ip="+ip_code.value);
-    }, 1000);
-=======
-        $("#i").load("../<?= $ci?>.php?ip="+ip_code.value);
-    }, 500);
->>>>>>> ebb5504 (Add parking management features with dynamic updates and manual tag confirmation)
+    const baseUrl = '<?= site_url() ?>';
+
+    function loadParking() {
+        const ip = ip_code.value;
+        const ipParam = ip ? '?ip=' + encodeURIComponent(ip) : '';
+
+        $("#h").load(baseUrl + "/parking-display/A/<?= $autoVariant ?>" + ipParam);
+        $("#i").load(baseUrl + "/parking-display/B/<?= $manualVariant ?>" + ipParam);
+        $("#j").load(baseUrl + "/parking-display/M/form" + ipParam);
+    }
+
+    loadParking();
+    setInterval(loadParking, 1000);
 });
 </script>
 <?= $this->endSection() ?>

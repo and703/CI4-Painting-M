@@ -29,12 +29,10 @@ class Filters extends BaseConfig
      */
     public $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
+            //'csrf',
         ],
         'after' => [
-            'toolbar',
-            // 'honeypot',
+            //'toolbar',
         ],
     ];
 
@@ -58,5 +56,9 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    public $filters = [];
+    public $filters = [
+        'csrf' => [
+            'before' => ['api_app/*'],
+        ],
+    ];
 }
